@@ -21,23 +21,20 @@ interface ModalAddFoodProps {
   handleAddFood: (data: Food) => Promise<void>;
 }
 
-const ModalAddFood: React.FC<ModalAddFoodProps> = ({
-  isOpen,
-  setIsOpen,
-  handleAddFood,
-}) => {
+
+function ModalAddFood(ModalAddFoodProps: ModalAddFoodProps) {
   const formRef = useRef<FormHandles>(null);
 
   const handleSubmit = useCallback(
     async (data) => {
-      handleAddFood(data);
-      setIsOpen();
+      ModalAddFoodProps.handleAddFood(data);
+      ModalAddFoodProps.setIsOpen();
     },
-    [handleAddFood, setIsOpen],
+    [ModalAddFoodProps],
   );
 
   return (
-    <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
+    <Modal isOpen={ModalAddFoodProps.isOpen} setIsOpen={ModalAddFoodProps.setIsOpen}>
       <Form ref={formRef} onSubmit={handleSubmit}>
         <h1>Novo Prato</h1>
         <Input name="image" placeholder="Cole o link aqui" />
